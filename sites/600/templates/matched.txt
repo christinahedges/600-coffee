@@ -1,0 +1,25 @@
+Dear {{name1}} and {{name2}},
+
+This is an automated email from {robot_name} that has paired you for a random
+"coffee" meeting in the next two weeks. This program is designed to introduce
+you to people in 660 by encouraging you to set up
+brief one-on-one coffee meetings with a new person every 2 weeks. The hope is
+that this will help identify common interests, foster new collaborations,
+and meet new people at GSFC.
+
+This email is here to encourage you two to arrange a short (think 15 minutes)
+informal meeting some time in the next two weeks. If you are both in the office
+and both feel comfortable with it, feel free to arrange an in-person meeting,
+but make sure that you follow the recommended COVID safety procedures!
+
+FYI, {{name1}}{{pronouns1}}{{topics1}} works in Code {{code1}}, and
+ {{name2}}{{pronouns2}}{{topics2}} works in Code {{code2}}. {{name1}}'s email is
+ {{email1}} and {{name2}}'s email is {{email2}}.
+
+You're welcome to ignore or postpone the meeting suggestion for any reason, but
+do try to let each other know if you can't make it because you won't be
+paired by Coffee Roulette again!
+
+You can opt out of this program by changing your response to the sign up form here: {form_url}
+
+Enjoy your coffee, tea, or similar!

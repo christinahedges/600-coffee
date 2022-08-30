@@ -1,0 +1,2 @@
+docker build --tag flatiron-coffee .
+docker run --rm -it -v $(pwd)/sites:/app/sites -v $(pwd)/settings:/app/settings flatiron-coffee 600

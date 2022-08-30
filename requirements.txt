@@ -1,5 +1,5 @@
 PyYAML==5.4.1
 google-api-python-client==2.5.0
-pandas==1.2.4
+pandas==1.4.3
 requests==2.25.1
 networkx==2.5.1

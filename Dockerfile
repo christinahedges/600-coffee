@@ -11,4 +11,4 @@ RUN python -m pip install -U pip && \
 COPY . .
 
 ENTRYPOINT [ "python", "execute.py" ]
-CMD [ "cca" ]
+CMD [ "600" ]

@@ -16,10 +16,7 @@ def _load_and_wrap(config, filename, wrap=True):
         txt = f.read().format(**config)
     if not wrap:
         return txt
-    return (
-        "\n\n".join([par.replace("\n", " ") for par in txt.split("\n\n")])
-        + "\n\n"
-    )
+    return "\n\n".join([par.replace("\n", " ") for par in txt.split("\n\n")]) + "\n\n"
 
 
 def get_emails():
@@ -56,9 +53,7 @@ def find_matches(site, dry_run=True):
     emails = list(email_map.keys())
 
     # A map between emails and groups
-    group_map = dict(
-        zip(sheet["Email Address"], sheet.get("Affiliation", "any"))
-    )
+    group_map = dict(zip(sheet["Email Address"], sheet.get("Affiliation", "any")))
 
     # Seed with the date
     today = date.today()
@@ -79,21 +74,36 @@ def find_matches(site, dry_run=True):
         mail.send_message(config, [admin_email], msg)
 
     # Load the templates
-    sign = _load_and_wrap(
-        config, site_path("templates/signature.txt"), wrap=False
-    )
-    matched_temp = (
-        _load_and_wrap(config, site_path("templates/matched.txt")) + sign
-    )
-    unmatched_temp = (
-        _load_and_wrap(config, site_path("templates/unmatched.txt")) + sign
-    )
+    sign = _load_and_wrap(config, site_path("templates/signature.txt"), wrap=False)
+    matched_temp = _load_and_wrap(config, site_path("templates/matched.txt")) + sign
+    unmatched_temp = _load_and_wrap(config, site_path("templates/unmatched.txt")) + sign
 
     for match in matches:
         email1, email2 = match
         name1 = sheet.loc[email_map[email1]]["Preferred name"]
         name2 = sheet.loc[email_map[email2]]["Preferred name"]
-        txt = matched_temp.format(name1=name1, name2=name2)
+        code1 = sheet.loc[email_map[email1]]["Code"]
+        code2 = sheet.loc[email_map[email2]]["Code"]
+        pronouns1 = sheet.loc[email_map[email1]]["Preferred pronouns"]
+        pronouns2 = sheet.loc[email_map[email2]]["Preferred pronouns"]
+        pronouns1 = f" [{pronouns1}]" if pronouns1 != "" else ""
+        pronouns2 = f" [{pronouns2}]" if pronouns2 != "" else ""
+        topics1 = sheet.loc[email_map[email1]]["Science focus"]
+        topics2 = sheet.loc[email_map[email2]]["Science focus"]
+        topics1 = f" works on {topics1} and" if topics1 != "" else ""
+        topics2 = f" works on {topics2} and" if topics2 != "" else ""
+        txt = matched_temp.format(
+            name1=name1,
+            name2=name2,
+            pronouns1=pronouns1,
+            pronouns2=pronouns2,
+            topics1=topics1,
+            topics2=topics2,
+            code1=code1,
+            code2=code2,
+            email1=email1,
+            email2=email2,
+        )
         if not config["debug"]:
             mail.send_message(config, [email1, email2], txt)
         else:
